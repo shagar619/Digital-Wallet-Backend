@@ -5,6 +5,7 @@ import expressSession from "express-session";
 import { envVars } from "./app/config/env";
 import notFound from "./app/middlewares/notFound";
 import { router } from "./app/routes";
+import { globalErrorHandler } from "./app/middlewares/globalErrorHandler";
 
 
 
@@ -40,7 +41,7 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 
-// app.use(globalErrorHandler);
+app.use(globalErrorHandler);
 
 app.use(notFound);
 
