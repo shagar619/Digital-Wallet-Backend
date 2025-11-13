@@ -13,7 +13,7 @@ import { responseSender } from "../../utils/responseSender";
      responseSender(res, {
           success: true,
           statusCode: httpStatus.CREATED,
-          message: "User created successfully",
+          message: "User created successfully!",
           data: result,
      });
 }
@@ -35,8 +35,8 @@ import { responseSender } from "../../utils/responseSender";
 
      responseSender(res, {
           success: true,
-          statusCode: httpStatus.CREATED,
-          message: "User Updated Successfully",
+          statusCode: httpStatus.OK,
+          message: "User Updated Successfully!",
           data: user,
      });
 }
@@ -48,8 +48,8 @@ import { responseSender } from "../../utils/responseSender";
 
      responseSender(res, {
           success: true,
-          statusCode: httpStatus.CREATED,
-          message: "All Users Retrieved Successfully",
+          statusCode: httpStatus.OK,
+          message: "All Users Retrieved Successfully!",
           data: result.data,
           meta: result.meta,
      });
@@ -62,8 +62,8 @@ import { responseSender } from "../../utils/responseSender";
      const result = await UserServices.getAllAgents();
      responseSender(res, {
           success: true,
-          statusCode: httpStatus.CREATED,
-          message: "All Agents Retrieved Successfully",
+          statusCode: httpStatus.OK,
+          message: "All Agents Retrieved Successfully!",
           data: result.data,
           meta: result.meta,
      });
