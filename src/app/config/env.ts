@@ -11,8 +11,8 @@ interface EnvConfig {
      JWT_ACCESS_SECRET: string,
      JWT_REFRESH_SECRET: string,
      JWT_REFRESH_EXPIRES: string,
-     SUPER_ADMIN_EMAIL: string,
-     SUPER_ADMIN_PASSWORD: string,
+     ADMIN_EMAIL: string,
+     ADMIN_PASSWORD: string,
      EXPRESS_SESSION_SECRET: string,
      
      GOOGLE_CLIENT_SECRET: string,
@@ -57,7 +57,7 @@ interface EnvConfig {
 
 const loadEnvVariables = () : EnvConfig => {
 
-     const requiredEnvVariables : string[] = ["PORT", "DB_URL", "NODE_ENV", "BCRYPT_SALT_ROUND", "JWT_ACCESS_EXPIRES", "JWT_ACCESS_SECRET", "SUPER_ADMIN_EMAIL", "SUPER_ADMIN_PASSWORD", "JWT_REFRESH_SECRET", "JWT_REFRESH_EXPIRES", "EXPRESS_SESSION_SECRET", "GOOGLE_CLIENT_SECRET", "GOOGLE_CLIENT_ID", "GOOGLE_CALLBACK_URL", "FRONTEND_URL"];
+     const requiredEnvVariables : string[] = ["PORT", "DB_URL", "NODE_ENV", "BCRYPT_SALT_ROUND", "JWT_ACCESS_EXPIRES", "JWT_ACCESS_SECRET", "ADMIN_EMAIL", "ADMIN_PASSWORD", "JWT_REFRESH_SECRET", "JWT_REFRESH_EXPIRES", "EXPRESS_SESSION_SECRET", "GOOGLE_CLIENT_SECRET", "GOOGLE_CLIENT_ID", "GOOGLE_CALLBACK_URL", "FRONTEND_URL"];
 
      requiredEnvVariables.forEach(key => {
           if(!process.env[key]) {
@@ -75,8 +75,8 @@ const loadEnvVariables = () : EnvConfig => {
      JWT_ACCESS_SECRET: process.env.JWT_ACCESS_SECRET as string,
      JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET as string,
      JWT_REFRESH_EXPIRES: process.env.JWT_REFRESH_EXPIRES as string,
-     SUPER_ADMIN_EMAIL: process.env.SUPER_ADMIN_EMAIL as string,
-     SUPER_ADMIN_PASSWORD: process.env.SUPER_ADMIN_PASSWORD as string,
+     ADMIN_EMAIL: process.env.SUPER_ADMIN_EMAIL as string,
+     ADMIN_PASSWORD: process.env.SUPER_ADMIN_PASSWORD as string,
      EXPRESS_SESSION_SECRET: process.env.EXPRESS_SESSION_SECRET as string,
 
      GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET as string,
