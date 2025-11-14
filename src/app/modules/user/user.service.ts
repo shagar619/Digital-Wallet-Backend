@@ -61,8 +61,7 @@ const createUser = async (payload: Partial<IUser>) => {
      const updateUser = async (
           userId: string,
           payload: Partial<IUser>,
-          decodedToken: JwtPayload
-) => {
+          decodedToken: JwtPayload) => {
 
      const ifUserExist = await UserModel.findById(userId);
 

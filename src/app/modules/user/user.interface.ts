@@ -21,8 +21,8 @@ export interface IUser {
      _id?: Types.ObjectId;
      name: string;
      email: string;
-     phone: string;
-     address: string;
+     phone?: string;
+     address?: string;
      password: string;
      profilePhoto?: string;
      shortBio?: string; 
