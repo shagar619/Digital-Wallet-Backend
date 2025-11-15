@@ -8,7 +8,7 @@ import { responseSender } from "../../utils/responseSender";
 
 const getAllTransactionByUserID = asyncHandler(async (req: Request, res: Response) => {
 
-     const { userId: user_id } = req.user as JwtUserPayload;
+     const { _id: user_id } = req.user as JwtUserPayload;
      const result = await TransactionService.getAllTransactionByUserID(user_id);
 
      responseSender(res, {
