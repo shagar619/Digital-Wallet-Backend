@@ -9,7 +9,7 @@ import { WalletService } from "./wallet.service";
 
 const getMylWallet = asyncHandler(async (req: Request, res: Response) => {
 
-     const { userId: user_id } = req.user as JwtUserPayload;
+     const { _id: user_id } = req.user as JwtUserPayload;
      const result = await WalletService.getMylWallet(user_id);
 
      responseSender(res, {
@@ -38,7 +38,7 @@ const getAllWallet = asyncHandler(async (req: Request, res: Response) => {
 
 const addMoney = asyncHandler(async (req: Request, res: Response) => {
 
-     const { userId: agent_id } = req.user as JwtUserPayload;
+     const { _id: agent_id } = req.user as JwtUserPayload;
      const { user_id, amount } = req.body;
      const result = await WalletService.addMoney(agent_id, user_id, amount);
 
@@ -54,7 +54,7 @@ const addMoney = asyncHandler(async (req: Request, res: Response) => {
 
 const withdrawMoney = asyncHandler(async (req: Request, res: Response) => {
 
-     const { userId: user_id } = req.user as JwtUserPayload;
+     const { _id: user_id } = req.user as JwtUserPayload;
      const { agent_id, amount } = req.body;
      const result = await WalletService.withdrawMoney(user_id, agent_id, amount);
 
@@ -70,7 +70,7 @@ const withdrawMoney = asyncHandler(async (req: Request, res: Response) => {
 
 
 const transferMoney = asyncHandler(async (req: Request, res: Response) => {
-     const { userId: sender_id } = req.user as JwtUserPayload;
+     const { _id: sender_id } = req.user as JwtUserPayload;
      const { receiver_id, amount } = req.body;
      const result = await WalletService.transferMoney(
           sender_id,

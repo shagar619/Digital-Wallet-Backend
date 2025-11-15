@@ -26,6 +26,12 @@ router.get(
      UserControllers.getAllAgents
 );
 
+router.get(
+     "/my-profile",
+     checkAuth(...Object.values(Role)), // ✔ any logged-in user can access
+     UserControllers.getMyProfile
+);
+
 router.patch(
      "/:id", 
      checkAuth(Role.ADMIN), 

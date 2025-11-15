@@ -70,9 +70,27 @@ import { responseSender } from "../../utils/responseSender";
 }
 );
 
+
+
+     const getMyProfile = asyncHandler(async (req: Request, res: Response) => {
+
+     const decodedToken = req.user as JwtPayload;
+     const result = await UserServices.getMyProfile(decodedToken.userId);
+
+     responseSender(res, {
+          success: true,
+          statusCode: httpStatus.OK,
+          message: "My profile retrieved successfully!",
+          data: result,
+     });
+});
+
+
+
 export const UserControllers = {
      createUser,
      updateUser,
      getAllUsers,
      getAllAgents,
+     getMyProfile
 };

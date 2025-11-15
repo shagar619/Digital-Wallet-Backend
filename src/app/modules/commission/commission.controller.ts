@@ -9,7 +9,7 @@ import { responseSender } from "../../utils/responseSender";
 
 const getAllCommissionByUserID = asyncHandler(async (req: Request, res: Response) => {
 
-     const { userId: user_id } = req.user as JwtUserPayload;
+     const { _id: user_id } = req.user as JwtUserPayload;
      const result = await CommissionService.getAllCommissionByUserID(user_id);
 
      responseSender(res, {
