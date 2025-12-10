@@ -16,7 +16,7 @@ router.post(
 
 router.get(
      "/all-users", 
-     checkAuth(Role.ADMIN), 
+     // checkAuth(Role.ADMIN), 
      UserControllers.getAllUsers
 );
 
