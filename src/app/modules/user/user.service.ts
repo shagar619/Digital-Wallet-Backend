@@ -58,10 +58,10 @@ const createUser = async (payload: Partial<IUser>) => {
 
 
 
-     const updateUser = async (
-          userId: string,
-          payload: Partial<IUser>,
-          decodedToken: JwtPayload) => {
+const updateUser = async (
+     userId: string,
+     payload: Partial<IUser>,
+     decodedToken: JwtPayload) => {
 
      const ifUserExist = await UserModel.findById(userId);
 
@@ -105,7 +105,7 @@ const createUser = async (payload: Partial<IUser>) => {
 
 
 
-     const getAllUsers = async () => {
+const getAllUsers = async () => {
 
      const users = await UserModel.find({ role: "USER" });
      const totalUsers = await UserModel.countDocuments({ role: "USER" });
@@ -121,7 +121,7 @@ const createUser = async (payload: Partial<IUser>) => {
 
 
 
-     const getAllAgents = async () => {
+const getAllAgents = async () => {
 
      const agents = await UserModel.find({ role: "AGENT" });
      const totalAgents = await UserModel.countDocuments({ role: "AGENT" });
@@ -136,7 +136,7 @@ const createUser = async (payload: Partial<IUser>) => {
 
 
 
-     const getMyProfile = async (userId: string) => {
+const getMyProfile = async (userId: string) => {
 
      const user = await UserModel.findById(userId).select("-password");
 
