@@ -37,4 +37,6 @@ export const createUserZodSchema = z.object({
           .string({ error: "Address must be string" })
           .max(200, { message: "Address cannot exceed 200 characters." })
           .optional(),
+          
+     role: z.enum(["ADMIN", "USER", "AGENT"]).optional(),
 });

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import AppError from "../../errorHelpers/AppError";
 import { IAuthProvider, IUser, Role } from "./user.interface";
 import { UserModel } from "./user.model";
@@ -6,6 +7,7 @@ import bcryptjs from "bcryptjs";
 import { envVars } from "../../config/env";
 import { WalletModel } from "../wallet/wallet.model";
 import { JwtPayload } from "jsonwebtoken";
+import { userSearchableFields } from "./user.constant";
 
 
 const createUser = async (payload: Partial<IUser>) => {
@@ -88,7 +90,7 @@ const updateUser = async (
      if (payload.password) {
           payload.password = await bcryptjs.hash(
           payload.password,
-          envVars.BCRYPT_SALT_ROUND
+          Number(envVars.BCRYPT_SALT_ROUND) || 10
      );
 }
 
@@ -105,34 +107,138 @@ const updateUser = async (
 
 
 
-const getAllUsers = async () => {
+// const getAllUsers = async () => {
 
-     const users = await UserModel.find({ role: "USER" });
-     const totalUsers = await UserModel.countDocuments({ role: "USER" });
+//      const users = await UserModel.find({ role: "USER" });
+//      const totalUsers = await UserModel.countDocuments({ role: "USER" });
+
+//      return {
+//           data: users,
+//           meta: {
+//                total: totalUsers,
+//      },
+// };
+// };
+
+
+
+
+
+
+
+
+
+
+const getAllUsers = async (query: Record<string, unknown>) => {
+
+     const { searchTerm, page = 1, limit = 10 } = query;
+
+     const pageNumber = Number(page);
+     const limitNumber = Number(limit);
+     const skip = (pageNumber - 1) * limitNumber;
+
+     const andConditions: any[] = [{ role: "USER" }]; // Base filter
+
+     // Search Logic
+     if (searchTerm) {
+     andConditions.push({
+     $or: userSearchableFields.map((field) => ({
+        [field]: { $regex: searchTerm, $options: "i" }, // Case-insensitive regex
+     })),
+     });
+}
+
+     const whereConditions = { $and: andConditions };
+
+     // Database Queries
+     const result = await UserModel.find(whereConditions)
+     .sort({ createdAt: -1 }) // Newest first
+     .skip(skip)
+     .limit(limitNumber);
+
+     const total = await UserModel.countDocuments(whereConditions);
 
      return {
-          data: users,
-          meta: {
-               total: totalUsers,
-     },
-};
-};
-
-
-
-
-const getAllAgents = async () => {
-
-     const agents = await UserModel.find({ role: "AGENT" });
-     const totalAgents = await UserModel.countDocuments({ role: "AGENT" });
-
-     return {
-     data: agents,
      meta: {
-          total: totalAgents,
+          page: pageNumber,
+          limit: limitNumber,
+          total,
+          totalPage: Math.ceil(total / limitNumber),
      },
+     data: result,
+     };
+};
+
+
+
+
+
+
+// const getAllAgents = async () => {
+
+//      const agents = await UserModel.find({ role: "AGENT" });
+//      const totalAgents = await UserModel.countDocuments({ role: "AGENT" });
+
+//      return {
+//      data: agents,
+//      meta: {
+//           total: totalAgents,
+//      },
+// };
+// };
+
+
+
+
+
+
+
+const getAllAgents = async (query: Record<string, unknown>) => {
+
+     const { searchTerm, page = 1, limit = 10 } = query;
+
+     const pageNumber = Number(page);
+     const limitNumber = Number(limit);
+     const skip = (pageNumber - 1) * limitNumber;
+
+     const andConditions: any[] = [{ role: "AGENT" }]; // Base filter
+
+     if (searchTerm) {
+     andConditions.push({
+     $or: userSearchableFields.map((field) => ({
+          [field]: { $regex: searchTerm, $options: "i" },
+     })),
+     });
+}
+
+     const whereConditions = { $and: andConditions };
+
+     const result = await UserModel.find(whereConditions)
+     .sort({ createdAt: -1 })
+     .skip(skip)
+     .limit(limitNumber);
+
+     const total = await UserModel.countDocuments(whereConditions);
+
+     return {
+     meta: {
+          page: pageNumber,
+          limit: limitNumber,
+          total,
+          totalPage: Math.ceil(total / limitNumber),
+     },
+     data: result,
 };
 };
+
+
+
+
+
+
+
+
+
 
 
 

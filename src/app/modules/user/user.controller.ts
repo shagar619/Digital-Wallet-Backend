@@ -61,6 +61,7 @@ import { responseSender } from "../../utils/responseSender";
      const getAllAgents = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
 
      const result = await UserServices.getAllAgents();
+
      responseSender(res, {
           success: true,
           statusCode: httpStatus.OK,
@@ -76,6 +77,7 @@ import { responseSender } from "../../utils/responseSender";
      const getMyProfile = asyncHandler(async (req: Request, res: Response) => {
 
      const decodedToken = req.user as JwtPayload;
+
      const result = await UserServices.getMyProfile(decodedToken.userId);
 
      responseSender(res, {

@@ -16,7 +16,7 @@ router.post(
 
 router.get(
      "/all-users", 
-     // checkAuth(Role.ADMIN), 
+     checkAuth(Role.ADMIN), 
      UserControllers.getAllUsers
 );
 
@@ -33,10 +33,10 @@ router.get(
 );
 
 router.patch(
-     "/:id", 
-     checkAuth(Role.ADMIN), 
+     "/:id",
+     checkAuth(...Object.values(Role)), 
      UserControllers.updateUser
-)
+);
 
 
 export const UserRoutes = router;
