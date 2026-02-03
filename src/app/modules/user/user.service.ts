@@ -107,26 +107,6 @@ const updateUser = async (
 
 
 
-// const getAllUsers = async () => {
-
-//      const users = await UserModel.find({ role: "USER" });
-//      const totalUsers = await UserModel.countDocuments({ role: "USER" });
-
-//      return {
-//           data: users,
-//           meta: {
-//                total: totalUsers,
-//      },
-// };
-// };
-
-
-
-
-
-
-
-
 
 
 const getAllUsers = async (query: Record<string, unknown>) => {
@@ -172,27 +152,6 @@ const getAllUsers = async (query: Record<string, unknown>) => {
 
 
 
-
-
-// const getAllAgents = async () => {
-
-//      const agents = await UserModel.find({ role: "AGENT" });
-//      const totalAgents = await UserModel.countDocuments({ role: "AGENT" });
-
-//      return {
-//      data: agents,
-//      meta: {
-//           total: totalAgents,
-//      },
-// };
-// };
-
-
-
-
-
-
-
 const getAllAgents = async (query: Record<string, unknown>) => {
 
      const { searchTerm, page = 1, limit = 10 } = query;
@@ -234,14 +193,6 @@ const getAllAgents = async (query: Record<string, unknown>) => {
 
 
 
-
-
-
-
-
-
-
-
 const getMyProfile = async (userId: string) => {
 
      const user = await UserModel.findById(userId).select("-password");
@@ -256,10 +207,31 @@ const getMyProfile = async (userId: string) => {
 
 
 
+const deleteUser = async (userId: string) => {
+
+     const user = await UserModel.findById(userId);
+
+     if (!user) {
+     throw new AppError(httpStatus.NOT_FOUND, "User not found");
+     }
+
+     // Delete the User
+     await UserModel.findByIdAndDelete(userId);
+
+     // Delete associated Wallet (Data Integrity)
+     await WalletModel.findOneAndDelete({ user: userId });
+
+     return null;
+};
+
+
+
+
 export const UserServices = {
      createUser,
      updateUser,
      getAllUsers,
      getAllAgents,
-     getMyProfile
+     getMyProfile,
+     deleteUser
 };

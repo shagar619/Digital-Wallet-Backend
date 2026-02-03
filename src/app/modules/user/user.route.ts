@@ -39,4 +39,11 @@ router.patch(
 );
 
 
+router.delete(
+     "/:id",
+     checkAuth(Role.ADMIN), // 🔒 Only Admins can delete
+     UserControllers.deleteUser
+);
+
+
 export const UserRoutes = router;
