@@ -15,12 +15,12 @@ const WalletSchema = new Schema(
      },
      status: { 
           type: String, 
-          enum: ["ACTIVE", "BLOCKED"], 
+          enum: ["ACTIVE", "BLOCKED"],
           default: "ACTIVE" 
      },
 },
-{    timestamps: true, 
-     versionKey: false 
+{    timestamps: true,
+     versionKey: false
 }
 );
 
