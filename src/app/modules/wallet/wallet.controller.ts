@@ -145,4 +145,42 @@ const getMyBalance = asyncHandler(async (req: Request, res: Response) => {
      });
 });
 
-export const WalletControllers = { getMyBalance };
+
+
+const getAllWallets = asyncHandler(async (req: Request, res: Response) => {
+
+     const result = await WalletServices.getAllWallets(req.query);
+
+     responseSender(res, {
+          success: true,
+          statusCode: httpStatus.OK,
+          message: "All wallets retrieved successfully",
+          meta: result.meta,
+          data: result.data,
+     });
+});
+
+
+
+const updateWalletStatus = asyncHandler(async (req: Request, res: Response) => {
+
+     const { id } = req.params;
+     const { status } = req.body;
+
+     const result = await WalletServices.updateWalletStatus(id, status);
+
+     responseSender(res, {
+          success: true,
+          statusCode: httpStatus.OK,
+          message: `Wallet status updated to ${status}`,
+          data: result,
+     });
+});
+
+
+
+export const WalletControllers = { 
+     getMyBalance,
+     getAllWallets,
+     updateWalletStatus
+};
