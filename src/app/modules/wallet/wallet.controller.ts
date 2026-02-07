@@ -7,6 +7,7 @@
 
 
 
+
 // const getMylWallet = asyncHandler(async (req: Request, res: Response) => {
 
 //      const { _id: user_id } = req.user as JwtUserPayload;
@@ -114,3 +115,34 @@
 //      transferMoney,
 //      updateWallet,
 // };
+
+
+
+
+
+
+
+
+//  Updated
+import { Request, Response } from "express";
+import { asyncHandler } from "../../utils/asyncHandler";
+import { JwtPayload } from "jsonwebtoken";
+import { WalletServices } from "./wallet.service";
+import { responseSender } from "../../utils/responseSender";
+import httpStatus from "http-status-codes";
+
+
+const getMyBalance = asyncHandler(async (req: Request, res: Response) => {
+
+     const user = req.user as JwtPayload;
+     const result = await WalletServices.getMyBalance(user.userId);
+
+     responseSender(res, {
+          success: true,
+          statusCode: httpStatus.OK,
+          message: "Balance retrieved",
+          data: result,
+     });
+});
+
+export const WalletControllers = { getMyBalance };

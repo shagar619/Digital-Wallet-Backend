@@ -64,6 +64,13 @@ router.get(
      TransactionControllers.getMyTransactions
 );
 
+router.post(
+     "/withdraw",
+     checkAuth(Role.USER), // 🔒 Only Users can withdraw
+     validateRequest(TransactionValidations.withdrawSchema),
+     TransactionControllers.withdraw
+);
+
 // --- AGENT ROUTES ---
 router.post(
      "/cash-in",

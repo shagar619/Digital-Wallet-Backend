@@ -93,15 +93,30 @@ const cashIn = asyncHandler(async (req: Request, res: Response) => {
      });
 });
 
-const getMyTransactions = asyncHandler(async (req: Request, res: Response) => {
+const withdraw = asyncHandler(async (req: Request, res: Response) => {
 
      const user = req.user as JwtPayload;
-     const result = await TransactionServices.getMyTransactions(user.userId);
+     const result = await TransactionServices.withdraw(user.userId, req.body);
 
      responseSender(res, {
           success: true,
           statusCode: httpStatus.OK,
-          message: "History retrieved",
+          message: "Withdrawal successful",
+          data: result,
+     });
+});
+
+const getMyTransactions = asyncHandler(async (req: Request, res: Response) => {
+
+     const user = req.user as JwtPayload;
+
+     // Update: Pass 'req.query' so filters (type, limit) work
+     const result = await TransactionServices.getMyTransactions(user.userId, req.query);
+
+     responseSender(res, {
+          success: true,
+          statusCode: httpStatus.OK,
+          message: "History retrieved successfully",
           data: result,
      });
 });
@@ -121,6 +136,7 @@ const getAdminAnalytics = asyncHandler(async (req: Request, res: Response) => {
 export const TransactionControllers = {
      sendMoney,
      cashIn,
+     withdraw,
      getMyTransactions,
      getAdminAnalytics
 };

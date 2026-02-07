@@ -5,6 +5,7 @@
 // import { Role } from "../user/user.interface";
 // import { WalletBalanceAddZodSchema, WalletBalanceWithdrawZodSchema, WalletTransferZodSchema } from "./wallet.validation";
 
+
 // const router = Router();
 
 // router.get(
@@ -47,3 +48,35 @@
 // )
 
 // export const WalletRoutes = router;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Updated
+import { Router } from "express";
+import { checkAuth } from "../../middlewares/checkAuth";
+import { Role } from "../user/user.interface";
+import { WalletControllers } from "./wallet.controller";
+
+
+
+const router = Router();
+
+router.get(
+     "/my-balance",
+     checkAuth(Role.USER, Role.AGENT, Role.ADMIN), // All roles have wallets
+     WalletControllers.getMyBalance
+);
+
+export const WalletRoutes = router;

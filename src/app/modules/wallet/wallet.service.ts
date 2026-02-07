@@ -11,6 +11,7 @@
 
 
 
+
 // const getMylWallet = async (user_id: string) => {
 
 //      const wallet = await WalletModel.find({ user: user_id }).sort({
@@ -228,3 +229,38 @@
 //      transferMoney,
 //      updateWallet,
 // };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Updated
+import AppError from "../../errorHelpers/AppError";
+import { WalletModel } from "./wallet.model";
+import httpStatus from "http-status-codes";
+
+
+const getMyBalance = async (userId: string) => {
+
+     const wallet = await WalletModel.findOne({ user: userId }).select("balance status");
+     if (!wallet) throw new AppError(httpStatus.NOT_FOUND, "Wallet not found");
+     return wallet;
+};
+
+export const WalletServices = {
+     getMyBalance,
+};
