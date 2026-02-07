@@ -4,4 +4,6 @@ export interface IWallet extends Document {
      user: Types.ObjectId;
      balance: number;
      status: "ACTIVE" | "BLOCKED";
+     createdAt?: Date;
+     updatedAt?: Date;
 }
