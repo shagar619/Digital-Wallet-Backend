@@ -19,8 +19,16 @@ const cashOutSchema = z.object({
      pin: z.string(),
 });
 
+
+const withdrawSchema = z.object({
+     agentPhone: z.string({ error: "Agent phone is required" }),
+     amount: z.number().min(50, "Minimum withdrawal amount is 50"), // Higher limit for cash out
+     pin: z.string().optional(), // Security PIN (Simulated)
+});
+
 export const TransactionValidations = {
      sendMoneySchema,
      cashInSchema,
      cashOutSchema,
+     withdrawSchema,
 };
