@@ -10,6 +10,9 @@ import { JwtPayload } from "jsonwebtoken";
 import { userSearchableFields } from "./user.constant";
 
 
+
+
+
 const createUser = async (payload: Partial<IUser>) => {
 
      const { email, password, role = "USER", ...rest } = payload;
@@ -101,10 +104,6 @@ const updateUser = async (
 
      return newUpdatedUser;
 };
-
-
-
-
 
 
 

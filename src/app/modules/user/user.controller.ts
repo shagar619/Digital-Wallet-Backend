@@ -7,7 +7,8 @@ import { JwtPayload } from "jsonwebtoken";
 import { responseSender } from "../../utils/responseSender";
 
 
-     const createUser = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+
+const createUser = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
 
      const result = await UserServices.createUser(req.body);
 
@@ -45,7 +46,6 @@ import { responseSender } from "../../utils/responseSender";
 
 
 
-
 const getAllUsers = asyncHandler(async (req: Request, res: Response) => {
 
      // Pass req.query directly to handle ?searchTerm=foo&page=1
@@ -62,8 +62,7 @@ const getAllUsers = asyncHandler(async (req: Request, res: Response) => {
 
 
 
-
-     const getAllAgents = asyncHandler(async (req: Request, res: Response) => {
+const getAllAgents = asyncHandler(async (req: Request, res: Response) => {
 
      const result = await UserServices.getAllAgents(req.query);
 
@@ -78,9 +77,7 @@ const getAllUsers = asyncHandler(async (req: Request, res: Response) => {
 
 
 
-
-
-     const getMyProfile = asyncHandler(async (req: Request, res: Response) => {
+const getMyProfile = asyncHandler(async (req: Request, res: Response) => {
 
      const decodedToken = req.user as JwtPayload;
 

@@ -13,7 +13,6 @@ import { envVars } from "../../config/env";
 
 
 // Manually handle login with email and password
-
 const credentialsLogin = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
 
      const loginInfo = await AuthService.credentialsLogin(req.body);
@@ -40,46 +39,7 @@ const credentialsLogin = asyncHandler(async (req: Request, res: Response, next: 
           message: "User Logged In Successfully",
           data: loginInfo
      });
-})
-
-
-
-
-// const credentialsLogin = asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-
-//      passport.authenticate("local", async (err: any, user: any, info: any) => {
-
-//           if (err) {
-//                return next(new AppError(httpStatus.UNAUTHORIZED, err));
-//           }
-
-//           if (!user) {
-//                return next(new AppError(httpStatus.UNAUTHORIZED, info.message || "Login failed"));
-//           }
-
-//           const  userTokens = await createUserTokens(user);
-
-
-//           // delete user.toObject().password
-
-//           // OR,
-//           const { password: pass, ...rest } = user.toObject();
-
-//           // Set cookies
-//           setAuthCookie(res, userTokens);
-
-//           responseSender(res, {
-//                success: true,
-//                statusCode: httpStatus.OK,
-//                message: "User Logged In Successfully",
-//                data: {
-//                     accessToken: userTokens.accessToken,
-//                     refreshToken: userTokens.refreshToken,
-//                     user: rest
-//                }
-//           })
-//      })(req, res, next);
-// })
+});
 
 
 
@@ -108,7 +68,7 @@ const getNewAccessToken = asyncHandler(async (req: Request, res: Response, next:
           data: tokenInfo
      });
 
-})
+});
 
 
 
@@ -174,11 +134,7 @@ const googleCallbackController = asyncHandler(async (req: Request, res: Response
 
      res.redirect(`${envVars.FRONTEND_URL || "http://localhost:5173"}/${redirectTo}`);
 
-})
-
-
-
-
+});
 
 
 
