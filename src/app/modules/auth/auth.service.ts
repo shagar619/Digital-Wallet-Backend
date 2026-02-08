@@ -82,8 +82,6 @@ const resetPassword = async (payload: Record<string, any>, decodedToken: JwtPayl
 
 
 
-
-
 export const AuthService = {
      credentialsLogin,
      getNewAccessToken,
