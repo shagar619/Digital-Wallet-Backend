@@ -26,8 +26,14 @@ app.use(cookieParser());
 app.use(express.json());
 app.set("trust proxy", 1);
 app.use(express.urlencoded({ extended: true }));
+
 app.use(cors({
-     origin: envVars.FRONTEND_URL,
+     // origin: envVars.FRONTEND_URL,
+     origin: [
+          "http://localhost:5173",                  // Local Frontend
+          "https://digital-wallet-frontend-pearl.vercel.app",    // Future Deployed Frontend
+          "https://your-other-domain.com"
+     ],
      credentials: true
 }));
 
